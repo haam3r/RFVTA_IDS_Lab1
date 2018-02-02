@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-01-21T14:08:50.138Z",
+	"updatedAt": "2018-02-02T13:33:37.515Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -25,13 +25,15 @@
 					"message": "latest commit in this branch"
 				},
 				"branch": "master",
-				"name": "bootstrap"
+				"name": "labinit.sh"
 			}
 		]
 	},
 	"display_unit": "%",
 	"version": "0.1",
-	"contributors": [],
+	"contributors": [
+		"9BEHk7T3vJrCJTWcs"
+	],
 	"test_users": [],
 	"material": "",
 	"web": "",
