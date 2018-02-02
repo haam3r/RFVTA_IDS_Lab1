@@ -8,3 +8,5 @@ git pull
 
 apt-get install python-pip
 pip -U install faker
+
+/root/labs/RF_IDS_Lab1_Scripts/setup.sh
