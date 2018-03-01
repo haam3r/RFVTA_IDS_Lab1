@@ -7,7 +7,7 @@ cd ${LAB_FOLDER}
 git pull
 echo "Did git pull" >> /var/log/syslog
 apt-get install -y python3-pip jq
-pip3 -U install faker
+pip3 install faker
 
 #cd /root/labs/RF_IDS_Lab1_Scripts/scripts
 /root/labs/RF_IDS_Lab1_Scripts/setup.sh
