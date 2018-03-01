@@ -1,5 +1,6 @@
 #!/bin/bash
 # Bootstrap script for VTA
+export LC_ALL=C
 echo "Start bootstrap" >> /var/log/syslog
 LAB_FOLDER="/root/labs/RF_IDS_Lab1_Scripts"
 
