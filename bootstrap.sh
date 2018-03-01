@@ -10,3 +10,5 @@ apt-get install python3-pip
 pip3 -U install faker
 
 /root/labs/RF_IDS_Lab1_Scripts/setup.sh
+/root/labs/RF_IDS_Lab1_Scripts/scripts/assign_ips.sh
+/root/labs/simple-lab-wizard/setup_web.sh
