@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-02-26T20:53:33.427Z",
+	"updatedAt": "2018-03-05T12:14:31.319Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -131,9 +131,9 @@
 			"title": "My first rule",
 			"weight": 1,
 			"oname": "obj-h66",
-			"description": "Writing rules for suricata. Types of rules. Structure of a rule etc.",
+			"description": "Now that we have Suricata up and running, it's time to start writing rules.\n\n## The three parts of a rule\n\n### Action\nWhat to do when a signature matches\n\n### Header\nSpecifys what kind of traffic to match the rule-options against. This has multiple options. Whenever possible try to specify one of the application layer protocols. This reduces the amount of matching that the engine has to do.\n\n#### Protocol\nHas 4 main options:\n- tcp - Any TCP traffic\n-  udp - Any UDP traffic\n- icmp - Any ICMP traffic\n- ip - Any traffic i.e. all of the above\n\nIn addition to these, Suricata also supports some application layer protocols:\n- http\n- ftp\n- tls (this includes ssl)\n- smb \n- dns\n\n#### Source and destination\nHere you can specify IPv4 and IPv6 addresses (both single addresses and CIDR matches are supported) that the traffic should match. You can also use variables like $HOME_NET that can be specified in the suricata.yaml configuration file. Negation matches with \"!\" and grouping matches with \"[]\" are also supported.\n\n**Examples:**\n- !192.168.1.1/24 - any address that does not belong to this subnet\n- [10.10.10.0/24, !10.10.10.45] - any address in the 10.10.10.0/24 subnet except for 10.10.10.45\n- $HOME_NET - Range or ranges that you defined in the suricata.yaml configuration file \n\n#### Ports\n\nWhat ports the traffic is using. For HTTP it's common to set the source port as any and destination port as 80 for example.\nDifferent modifiers are also supported:\n- ! - exception/negation\n- : - range\n- [] - signs to make clear which parts belong together\n- , - separation\n\n#### Direction\n\nWhich way the traffic has to flow. Almost all rules have an arrow to the right, indicating that only packets with the same direction can match.\nExamples:\n- source -> destination\n- source <> destination  (both directions) \n\n### Rule-options",
 			"createdAt": "2018-01-12T12:39:17.830Z",
-			"updatedAt": "2018-01-12T12:50:54.015Z",
+			"updatedAt": "2018-03-05T12:14:31.318Z",
 			"longTitle": "My first rule",
 			"enabled": true,
 			"compulsory": true,
@@ -143,9 +143,9 @@
 					"title": "Write rule",
 					"weight": 1,
 					"uname": "step-3zc0",
-					"description": "Create rule to alert on any ICMP traffic.\n\nChecks:\n```bash\nls /etc/suricata/rules/custom.rules\n```",
+					"description": "Now that we have our IDS up and running. We'll dive into creating rules. We will start of with something simple, both to verify that Suricata is operating correctly and to get you familiar with the different parts of a rule.\nIn this objective you have to write a **Suricata rule to alert on any ICMP traffic**. Use the explanation given in the previous step as a guide.\n\nChecks:\n```bash\nls /etc/suricata/rules/custom.rules\n```",
 					"createdAt": "2018-01-12T12:39:52.819Z",
-					"updatedAt": "2018-01-12T12:51:00.439Z",
+					"updatedAt": "2018-03-05T11:41:05.357Z",
 					"longTitle": "Write rule",
 					"enabled": true,
 					"compulsory": true,
@@ -168,7 +168,7 @@
 					"web": ""
 				}
 			],
-			"material": "",
+			"material": "https://redmine.openinfosecfoundation.org/projects/suricata/wiki/Suricata_Rules",
 			"web": ""
 		},
 		{
