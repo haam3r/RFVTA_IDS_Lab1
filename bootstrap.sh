@@ -12,5 +12,5 @@ pip3 install faker
 
 #cd /root/labs/RF_IDS_Lab1_Scripts/scripts
 . ${LAB_FOLDER}/setup.sh
-. /root/labs/simple-lab-wizard/setup_web.sh
+. ${LAB_FOLDER}/scripts/web.sh
 echo "Finish bootstrap" >> /root/running/setup.log
