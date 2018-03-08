@@ -12,6 +12,6 @@ pip3 install faker
 
 #cd /root/labs/RF_IDS_Lab1_Scripts/scripts
 . /root/labs/RF_IDS_Lab1_Scripts/setup.sh
-#/root/labs/RF_IDS_Lab1_Scripts/scripts/assign_ips.sh
+. /root/labs/RF_IDS_Lab1_Scripts/scripts/assign_ips.sh
 . /root/labs/simple-lab-wizard/setup_web.sh
 echo "Finish bootstrap" >> /root/running/setup.log
