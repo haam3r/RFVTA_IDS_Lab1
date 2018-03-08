@@ -18,6 +18,7 @@ fi
 
 #cd /root/labs/RF_IDS_Lab1_Scripts/scripts
 . ${LAB_FOLDER}/setup.sh
+. ${LAB_FOLDER}/scripts/assign_ips.sh
 . ${LAB_FOLDER}/scripts/web.sh
 echo "Finish bootstrap" >> /root/running/setup.log
 exit 0
