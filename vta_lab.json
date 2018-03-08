@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-03-05T13:55:00.641Z",
+	"updatedAt": "2018-03-08T10:30:33.110Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -101,26 +101,26 @@
 					"uname": "step-rx10",
 					"description": "# Installation steps\n\nAlthough there are many ways to install Suricata, the easiest way on Ubuntu is to use a PPA(Personal Package Archive). Installing this way get's us up and running quickly with prebuilt packages and sensible defaults. On smaller networks this setup usually more than sufficient. On high traffic networks however, building from source with custom options and utilizing other capture librarys can yield signifcant performance gains. We will cover more advanced install modes later.\n\n## Install\n \n```bash\n# Add the Suricata PPA\nsudo add-apt-repository ppa:oisf/suricata-stable\n# Refresh package lists\nsudo apt-get update\n# Install suricata\napt-get install suricata\n```\n\nAs you can see, the PPA makes installation a breeze. Continue to configuration.\n\n## Checks:\n```bash\ndpkg -l | grep suricata\n```",
 					"createdAt": "2018-01-12T12:38:27.035Z",
-					"updatedAt": "2018-02-26T20:51:50.828Z",
+					"updatedAt": "2018-03-08T10:30:03.471Z",
 					"longTitle": "Install Suricata",
 					"enabled": true,
 					"compulsory": true,
 					"completionMethod": "test",
-					"material": "",
+					"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/install.html#ubuntu",
 					"web": ""
 				},
 				{
 					"title": "Configure Suricata",
 					"weight": 1,
 					"uname": "step-rjo1",
-					"description": "# Configuring Suricata\n\nBy default all configuration parametes for Suricata are placed inside the file `/etc/suricata/suricata.yaml`. This is also true when installing from the PPA.\nYou will now have to configure the minimum neccessary options to get Suricata up and running.\n\nOpen `/etc/suricata/suricata.yaml` in a text editor and configure the following options:\n1. In the very beginning under `address-groups` configure the `HOME_NET` parameter to your local subnet\n1. Find the `af-packet` section and under that configure the interfaces list to match your external network interface\n1. Run `systemctl restart suricata` to reload the configuration changes\n\n### Checks\n  ```bash\n  if [ $(systemctl status suricata) -eq 0] && [ $(grep -i 'engine started' /var/log/suricata/suricata.log) -eq 0 ] && [ $(ps auxf | grep '[s]uricata') -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
+					"description": "# Configuring Suricata\n\nWhen installing from the Ubuntu PPCA, configuration parametes for Suricata are placed inside the file `/etc/suricata/suricata.yaml`.\nYou will now have to configure the minimum neccessary options to get Suricata up and running. Here we also have to take into consideration that our IDS machine is placed inline in our network. This means that the IDS machine has to forward all packets coming through it and while forwarding also let Suricata analyse them. For this to work we also have to configure iptables.\nWhen not running inline, you only have to configure the interface receiving the traffic and tell Suricata to listen on that interface.\n\n## Ensure Suricata has NFQ support\n```\nsuricata --build-info\n```\n\n## Setting up iptables\n\nThe easiest method when forwarding traffic, is to add the following iptables rule:\n```\nsudo iptables -I FORWARD -j NFQUEUE\n```\n\n## Configure Suricata options\nOpen `/etc/suricata/suricata.yaml` in a text editor and configure the following options:\n1. In the very beginning under `address-groups` configure the `HOME_NET` parameter to your local subnet\n1. Find the `af-packet` section and under that configure the interfaces list to match your external network interface\n1. Configure Suricata systemd to run in NFQ mode: `sudo suricata -c /etc/suricata/suricata.yaml -q 0`\n1. Run `systemctl restart suricata` to reload the configuration changes\n\n### Checks\n  ```bash\n  if [ $(systemctl status suricata) -eq 0] && [ $(grep -i 'engine started' /var/log/suricata/suricata.log) -eq 0 ] && [ $(ps auxf | grep '[s]uricata') -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
 					"createdAt": "2018-01-12T12:38:40.721Z",
-					"updatedAt": "2018-02-26T20:53:33.426Z",
+					"updatedAt": "2018-03-08T10:29:19.378Z",
 					"longTitle": "Configure Suricata",
 					"enabled": true,
 					"compulsory": true,
 					"completionMethod": "view",
-					"material": "",
+					"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/setting-up-ipsinline-for-linux.html",
 					"web": ""
 				}
 			],
@@ -133,7 +133,7 @@
 			"oname": "obj-h66",
 			"description": "Now that we have Suricata up and running, it's time to start writing rules.\n\n![Example rule](https://redmine.openinfosecfoundation.org/attachments/download/440/intro_sig.png)\n\n## The three parts of a rule\n\n### Action\nWhat to do when a signature matches. There are four options:\n- pass - When a packet matches a signature, stop scanning the packet and for the current packet skip to the end of the rules\n- drop - If a signature matches, drop the packet. Only for IPS/inline mode. Will also log an alert. On the other hand will cause timeouts, because the other end will get no feedback.\n - reject - Reject the packet by sending either a tcp reset or icmp error packet. Also generate and alert and in IPS/inline mode the packet will also be dropped\n - alert - If a signature matches the packet, generate an alert.\n\n### Header\nSpecifys what kind of traffic to match the rule-options against. This has multiple options. Whenever possible try to specify one of the application layer protocols. This reduces the amount of matching that the engine has to do.\n\n#### Protocol\nHas 4 main options:\n- tcp - Any TCP traffic\n-  udp - Any UDP traffic\n- icmp - Any ICMP traffic\n- ip - Any traffic i.e. all of the above\n\nIn addition to these, Suricata also supports some application layer protocols:\n- http\n- ftp\n- tls (this includes ssl)\n- smb \n- dns\n\n#### Source and destination\nHere you can specify IPv4 and IPv6 addresses (both single addresses and CIDR matches are supported) that the traffic should match. You can also use variables like $HOME_NET that can be specified in the suricata.yaml configuration file. Negation matches with \"!\" and grouping matches with \"[]\" are also supported.\n\n**Examples:**\n- !192.168.1.1/24 - any address that does not belong to this subnet\n- [10.10.10.0/24, !10.10.10.45] - any address in the 10.10.10.0/24 subnet except for 10.10.10.45\n- $HOME_NET - Range or ranges that you defined in the suricata.yaml configuration file \n\n#### Ports\n\nWhat ports the traffic is using. For HTTP it's common to set the source port as any and destination port as 80 for example.\nDifferent modifiers are also supported:\n- ! - exception/negation\n- : - range\n- [] - signs to make clear which parts belong together\n- , - separation\n\n#### Direction\n\nWhich way the traffic has to flow. Almost all rules have an arrow to the right, indicating that only packets with the same direction can match.\nExamples:\n- source -> destination\n- source <> destination  (both directions) \n\n### Rule-options",
 			"createdAt": "2018-01-12T12:39:17.830Z",
-			"updatedAt": "2018-03-05T13:55:00.640Z",
+			"updatedAt": "2018-03-08T10:30:33.109Z",
 			"longTitle": "My first rule",
 			"enabled": true,
 			"compulsory": true,
@@ -168,7 +168,7 @@
 					"web": ""
 				}
 			],
-			"material": "https://redmine.openinfosecfoundation.org/projects/suricata/wiki/Suricata_Rules",
+			"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/rules/intro.html",
 			"web": ""
 		},
 		{
