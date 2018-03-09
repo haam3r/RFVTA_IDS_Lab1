@@ -20,5 +20,6 @@ fi
 . ${LAB_FOLDER}/setup.sh
 . ${LAB_FOLDER}/scripts/assign_ips.sh
 . ${LAB_FOLDER}/scripts/web.sh
+. /root/labs/ci-modular-target-checks/setup.sh
 echo "Finish bootstrap" >> /root/running/setup.log
 exit 0
