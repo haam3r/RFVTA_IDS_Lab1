@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-04-08T11:07:02.288Z",
+	"updatedAt": "2018-04-08T11:14:10.262Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -166,53 +166,24 @@
 					"completionMethod": "view",
 					"material": "",
 					"web": ""
-				}
-			],
-			"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/rules/intro.html",
-			"web": ""
-		},
-		{
-			"title": "IPS Mode",
-			"weight": 1,
-			"oname": "obj-861",
-			"description": "How to run Suricata in IPS mode aka ability to block traffic based on signatures",
-			"createdAt": "2018-01-12T12:41:30.711Z",
-			"updatedAt": "2018-01-12T12:51:51.027Z",
-			"longTitle": "IPS Mode",
-			"enabled": true,
-			"compulsory": true,
-			"completionMethod": "view",
-			"steps": [
-				{
-					"title": "Run in IPS mode",
-					"weight": 1,
-					"uname": "step-p7x0",
-					"description": "Reconfigure Suricata to run inline IPS\n\nChecks:\n```bash\n# NFQueue support\nsuricata --build-info | grep NFQueue | awk '{print $3}'\n# running with q option\nps auxf | grep 'suricata' | grep '-q'\n# IPTables\nsudo iptables -vnL | grep 'NFQUEUE'\n```",
-					"createdAt": "2018-01-12T12:41:48.716Z",
-					"updatedAt": "2018-01-12T13:00:22.337Z",
-					"longTitle": "Run in IPS mode",
-					"enabled": true,
-					"compulsory": true,
-					"completionMethod": "view",
-					"material": "",
-					"web": ""
 				},
 				{
 					"title": "Drop rule",
 					"weight": 1,
-					"uname": "step-i1r1",
-					"description": "Convert previous ICMP alert rule to drop rule.\n\n- Checks:\n  - Traffic does not reach web server/PING reply does not succeed, but web request works.\n  ```bash\n  if [ $(ping -c 1 1.2.3.4) -ne 0 ] && [ $(curl -m 3 http://1.2.3.4) -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
-					"createdAt": "2018-01-12T12:42:02.856Z",
-					"updatedAt": "2018-01-12T12:42:28.390Z",
+					"uname": "step-5v02",
+					"description": "We have already configured Suricata to run in inline mode.\nNow  you should modify your previously created rule to drop traffic instead of alerting.\n\nFor this, change the action keyword in the beginning of your rule from `alert` to `drop`",
+					"createdAt": "2018-04-08T11:12:32.438Z",
+					"updatedAt": "2018-04-08T11:14:10.262Z",
 					"longTitle": "Drop rule",
 					"enabled": true,
+					"visible": true,
 					"compulsory": true,
 					"completionMethod": "view",
 					"material": "",
 					"web": ""
 				}
 			],
-			"material": "",
+			"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/rules/intro.html",
 			"web": ""
 		}
 	],
