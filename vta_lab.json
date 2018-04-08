@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-03-09T13:42:14.877Z",
+	"updatedAt": "2018-04-08T11:07:02.288Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -113,13 +113,13 @@
 					"title": "Configure Suricata",
 					"weight": 1,
 					"uname": "step-rjo1",
-					"description": "# Configuring Suricata\n\nWhen installing from the Ubuntu PPCA, configuration parametes for Suricata are placed inside the file `/etc/suricata/suricata.yaml`.\nYou will now have to configure the minimum neccessary options to get Suricata up and running. Here we also have to take into consideration that our IDS machine is placed inline in our network. This means that the IDS machine has to forward all packets coming through it and while forwarding also let Suricata analyse them. For this to work we also have to configure iptables.\nWhen not running inline, you only have to configure the interface receiving the traffic and tell Suricata to listen on that interface.\n\n## Ensure Suricata has NFQ support\n```\nsuricata --build-info\n```\n\n## Setting up iptables\n\nThe easiest method when forwarding traffic, is to add the following iptables rule:\n```\nsudo iptables -I FORWARD -j NFQUEUE\n```\n\n## Configure Suricata options\nOpen `/etc/suricata/suricata.yaml` in a text editor and configure the following options:\n1. In the very beginning under `address-groups` configure the `HOME_NET` parameter to your local subnet\n1. Find the `af-packet` section and under that configure the interfaces list to match your external network interface\n1. Configure Suricata systemd to run in NFQ mode: `sudo suricata -c /etc/suricata/suricata.yaml -q 0`\n1. Run `systemctl restart suricata` to reload the configuration changes\n\n### Checks\n  ```bash\n  if [ $(systemctl status suricata) -eq 0] && [ $(grep -i 'engine started' /var/log/suricata/suricata.log) -eq 0 ] && [ $(ps auxf | grep '[s]uricata') -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
+					"description": "# Configuring Suricata\n\nWhen installing from the Ubuntu PPA, configuration parameters for Suricata are placed inside the file `/etc/suricata/suricata.yaml`.\nYou will now have to configure the minimum neccessary options to get Suricata up and running properly.\nHere we also have to take into consideration that our IDS machine is placed inline in our network. This means that the IDS machine has to forward all packets coming through it and while forwarding also let Suricata analyse them. For this to work we also have to configure iptables.\nWhen not running inline, you only have to configure the interface receiving the traffic and tell Suricata to listen on that interface.\n\n## Ensure Suricata has NFQ support\n```\nsuricata --build-info\n```\n\n## Setting up iptables\n\nThe easiest method when forwarding traffic, is to add the following iptables rule:\n```\nsudo iptables -I FORWARD -j NFQUEUE\n```\n\n## Configure Suricata options\nOpen `/etc/suricata/suricata.yaml` in a text editor and configure the following options:\n1. In the very beginning under `address-groups` configure the `HOME_NET` parameter to your local subnet\n1. Find the `af-packet` section and under that configure the interfaces list to match your external network interface\n1. Configure Suricata systemd to run in NFQ mode: `sudo suricata -c /etc/suricata/suricata.yaml -q 0`\n1. Run `systemctl restart suricata` to reload the configuration changes\n\n### Checks\n  ```bash\n  if [ $(systemctl status suricata) -eq 0] && [ $(grep -i 'engine started' /var/log/suricata/suricata.log) -eq 0 ] && [ $(ps auxf | grep '[s]uricata') -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
 					"createdAt": "2018-01-12T12:38:40.721Z",
-					"updatedAt": "2018-03-08T10:29:19.378Z",
+					"updatedAt": "2018-04-07T22:16:48.912Z",
 					"longTitle": "Configure Suricata",
 					"enabled": true,
 					"compulsory": true,
-					"completionMethod": "view",
+					"completionMethod": "test",
 					"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/setting-up-ipsinline-for-linux.html",
 					"web": ""
 				}
@@ -143,23 +143,23 @@
 					"title": "Write rule",
 					"weight": 1,
 					"uname": "step-3zc0",
-					"description": "Now that we have our IDS up and running. We'll dive into creating rules. We will start of with something simple, both to verify that Suricata is operating correctly and to get you familiar with the different parts of a rule.\nIn this objective you have to write a **Suricata rule to alert on any ICMP traffic**. Use the explanation given in the previous step as a guide.\n\nChecks:\n```bash\nls /etc/suricata/rules/custom.rules\n```",
+					"description": "Now that we have our IDS up and running. We'll dive into creating rules. We will start of with something simple, both to verify that Suricata is operating correctly and to get you familiar with the different parts of a rule.\nIn this objective you have to write a **Suricata rule to alert on any ICMP traffic**. Use the explanation given in the previous step as a guide.\n\nThings to note:\n- Make sure to include a `msg` field. The msg field should describe the traffic.\n- Include a SID number from the correct range of 1000000-1999999. You can find more information about sid range assignements from the materials link\n- Create file `/etc/suricata/rules/custom.rules` and place your rule inside it.\n\nChecks:\n```bash\nls /etc/suricata/rules/custom.rules\n```",
 					"createdAt": "2018-01-12T12:39:52.819Z",
-					"updatedAt": "2018-03-05T11:41:05.357Z",
+					"updatedAt": "2018-04-08T11:04:12.545Z",
 					"longTitle": "Write rule",
 					"enabled": true,
 					"compulsory": true,
 					"completionMethod": "view",
-					"material": "",
+					"material": "http://doc.emergingthreats.net/bin/view/Main/SidAllocation",
 					"web": ""
 				},
 				{
 					"title": "Test rule",
 					"weight": 1,
 					"uname": "step-m071",
-					"description": "Add rule to suricata configs. Make sure rule fires and alert is logged.\n\n- Checks:\n  - Alerts for the right criteria appear.\n  ```bash\n  # TODO: Grep criteria probably needs refinement/Also check that right attacking ip is logged\n  if [ $(grep -i 'icmp' /var/log/suricata/fast.log) -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
+					"description": "In the last step, you created your first rule. Now you should edit the configuration of Suricata, to include your newly created rule file.\n1. Add the custom rule file to suricata's configuration under the rules section\n1. Restart Suricata, for the changes to take effect\n1. Verify that the rules creates an alert for the right traffic in /var/log/suricata/fast.log\n1. The answer to this objective, is the source IP listed in the alert.\n\n- Checks:\n  - Alerts for the right criteria appear.\n  ```bash\n  # TODO: Grep criteria probably needs refinement/Also check that right attacking ip is logged\n  if [ $(grep -i 'icmp' /var/log/suricata/fast.log) -eq 0 ]\n  then\n      echo \"Success\"\n  fi\n  ```",
 					"createdAt": "2018-01-12T12:40:00.032Z",
-					"updatedAt": "2018-01-12T12:51:12.091Z",
+					"updatedAt": "2018-04-08T11:07:02.286Z",
 					"longTitle": "Test rule",
 					"enabled": true,
 					"compulsory": true,
@@ -216,5 +216,6 @@
 			"web": ""
 		}
 	],
+	"disable_clipboard": false,
 	"ownername": "andreselliku"
 }
