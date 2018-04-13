@@ -5,7 +5,7 @@
 	"success": "Profit!",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-04-13T11:28:00.996Z",
+	"updatedAt": "2018-04-13T11:34:43.139Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -165,7 +165,22 @@
 					"compulsory": true,
 					"completionMethod": "form",
 					"material": "",
-					"web": ""
+					"web": "",
+					"form": [
+						{
+							"text": "Source IP from the IDS alert",
+							"qname": "question-qv7",
+							"type": "value",
+							"score": 0,
+							"limit": 10,
+							"confirm": true,
+							"expected": [
+								"1.2.3.4"
+							],
+							"createdAt": "2018-04-13T11:34:43.138Z",
+							"updatedAt": "2018-04-13T11:34:43.138Z"
+						}
+					]
 				},
 				{
 					"title": "Drop rule",
