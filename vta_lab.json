@@ -1,11 +1,11 @@
 {
 	"_id": "MckZN8X24RLdAPrdQ",
 	"title": "IDS/IPS system basics",
-	"description": "How to install and configure Suricata IDS. Writing your first rule.\nConfiguring IPS mode with drop rules.",
-	"success": "Profit!",
+	"description": "This lab will guide you in installing Suricata. A popular intrusion detection system.\nAfter installation you will have to configure it in IPS mode.\nFor the last task you have to write your first rule.",
+	"success": "You have sucessfully completed this lab. You can now install and configure Suricata.",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-04-13T11:34:43.139Z",
+	"updatedAt": "2018-04-17T16:57:12.188Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -35,7 +35,7 @@
 		"9BEHk7T3vJrCJTWcs"
 	],
 	"test_users": [],
-	"material": "",
+	"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/",
 	"web": "",
 	"topology": "",
 	"objectives": [
@@ -188,12 +188,12 @@
 					"uname": "step-5v02",
 					"description": "We have already configured Suricata to run in inline mode.\nNow  you should modify your previously created rule to drop traffic instead of alerting.\n\nFor this, change the action keyword in the beginning of your rule from `alert` to `drop`",
 					"createdAt": "2018-04-08T11:12:32.438Z",
-					"updatedAt": "2018-04-12T13:04:15.190Z",
+					"updatedAt": "2018-04-13T12:24:20.803Z",
 					"longTitle": "Drop rule",
 					"enabled": true,
 					"visible": true,
 					"compulsory": true,
-					"completionMethod": "view",
+					"completionMethod": "test",
 					"material": "",
 					"web": ""
 				}
