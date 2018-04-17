@@ -8,12 +8,15 @@ CI_TARGET_CHECKS="/root/labs/ci-modular-target-checks"
 PRODUCT=$(dmidecode -s system-product-name)
 
 cd ${CI_TARGET}
+pwd >> /root/running/setup.log
 git pull >> /root/running/setup.log
 
 cd ${CI_TARGET_CHECKS}
+pwd >> /root/running/setup.log
 git pull >> /root/running/setup.log
 
 cd ${LAB_FOLDER}
+pwd >> /root/running/setup.log
 git pull >> /root/running/setup.log
 
 echo "Did git pulls" >> /root/running/setup.log
