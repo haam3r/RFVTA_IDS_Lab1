@@ -9,11 +9,11 @@ PRODUCT=$(dmidecode -s system-product-name)
 
 cd ${CI_TARGET}
 pwd >> /root/running/setup.log
-git pull >> /root/running/setup.log
+GIT_SSH_COMMAND="ssh -i ~/.ssh/ci-modular-target" git pull >> /root/running/setup.log
 
 cd ${CI_TARGET_CHECKS}
 pwd >> /root/running/setup.log
-git pull >> /root/running/setup.log
+GIT_SSH_COMMAND="ssh -i ~/.ssh/ci-modular-target-checks" git pull >> /root/running/setup.log
 
 cd ${LAB_FOLDER}
 pwd >> /root/running/setup.log
