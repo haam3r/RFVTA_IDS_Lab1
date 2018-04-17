@@ -8,13 +8,13 @@ CI_TARGET_CHECKS="/root/labs/ci-modular-target-checks"
 PRODUCT=$(dmidecode -s system-product-name)
 
 cd ${CI_TARGET}
-git pull
+git pull >> /root/running/setup.log
 
 cd ${CI_TARGET_CHECKS}
-git pull
+git pull >> /root/running/setup.log
 
 cd ${LAB_FOLDER}
-git pull
+git pull >> /root/running/setup.log
 
 echo "Did git pulls" >> /root/running/setup.log
 apt-get install -y python3-pip jq
