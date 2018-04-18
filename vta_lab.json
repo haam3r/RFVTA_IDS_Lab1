@@ -5,7 +5,7 @@
 	"success": "You have sucessfully completed this lab. You can now install and configure Suricata.",
 	"owner": "AqW8vDWa49bAp7jnG",
 	"createdAt": "2018-01-12T12:18:55.365Z",
-	"updatedAt": "2018-04-18T13:16:37.462Z",
+	"updatedAt": "2018-04-18T13:24:39.116Z",
 	"in_hub": false,
 	"allow_end": false,
 	"show_chat": false,
@@ -35,8 +35,8 @@
 		"9BEHk7T3vJrCJTWcs"
 	],
 	"test_users": [],
-	"material": "http://suricata.readthedocs.io/en/suricata-4.0.4/",
-	"web": "",
+	"material": "",
+	"web": "http://suricata.readthedocs.io/en/suricata-4.0.4/",
 	"topology": "",
 	"objectives": [
 		{
